@@ -12,3 +12,6 @@ Freddy Krueger
 The Joker
 Norman Bates
 """
+print "Overall, we have"
+print 11
+puts " great students"
