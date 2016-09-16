@@ -1,19 +1,28 @@
+def chomps
+  get_name = "Please enter a name:"
+  get_cohort = "Please enter a cohort:"
+  puts get_name
+  $name = $stdin.gets.chomp
+  puts get_cohort
+  $cohort = $stdin.gets.chomp
+end
 def input_students
-    puts "Please enter the names of the students"
-    puts "To finish, just hit return twice"
+    puts "Please enter the names and cohorts of the students when prompted"
+    puts "To finish, just hit return three times"
     # create an empty array
     students = []
     # get the first name
-    name = $stdin.gets.chomp
+    chomps
     # while the name is not empty, repeat this code
-    while !name.empty? do
+    while !$name.empty? do
       # add the student hash to the array
-      students << {name: name, cohort: :November,
+      students << {name: $name, cohort: $cohort,
                    hobbies: :hobbies, country_of_bith: :country,
                    height: :height, weight: :weight}
       puts "Now we have #{students.count} students".center(40)
       # get another name from the user
-      name = $stdin.gets.chomp
+
+      chomps
     end
     # return the array of students
     students
