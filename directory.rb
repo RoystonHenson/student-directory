@@ -24,8 +24,12 @@ end
 
 def print(students)
   students.each_with_index do |student, index|
-    puts "#{index + 1}: #{student[:name]} (#{student[:cohort]} cohort)"
-  end
+      if student[:name][0] == "R"
+        puts "#{index + 1}: #{student[:name]} (#{student[:cohort]} cohort)"
+      else
+        "#{index + 1}: #{student[:name]} (#{student[:cohort]} cohort)"
+      end
+    end
 end
 
 def print_footer(students)
