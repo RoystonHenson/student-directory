@@ -8,7 +8,9 @@ def input_students
     # while the name is not empty, repeat this code
     while !name.empty? do
       # add the student hash to the array
-      students << {name: name, cohort: :November}
+      students << {name: name, cohort: :November,
+                   hobbies: :hobbies, country_of_bith: :country,
+                   height: :height, weight: :weight}
       puts "Now we have #{students.count} students"
       # get another name from the user
       name = $stdin.gets.chomp
@@ -24,19 +26,15 @@ end
 
 def print(students)
   count = 0
-  index = 0
   while count < students.length
     if students[count - 1][:name][0] == "R" && students[count - 1][:name].length < 12
-      puts "#{index + 1}: #{students[count - 1][:name]} (#{students[count - 1][:cohort]} cohort)"
+      puts "#{count + 1}: #{students[count - 1][:name]} (#{students[count - 1][:cohort]} cohort)"
     else
-    "#{index + 1}: #{students[count - 1][:name]} (#{students[count - 1][:cohort]} cohort)"
+      "#{count + 1}: #{students[count - 1][:name]} (#{students[count - 1][:cohort]} cohort)"
     end
     break if count == students.length
     count += 1
-    index += 1
-
   end
-
 end
 
 def print_footer(students)
