@@ -19,7 +19,11 @@ def input_students
       students << {name: $name, cohort: $cohort,
                    hobbies: :hobbies, country_of_bith: :country,
                    height: :height, weight: :weight}
-      puts "Now we have #{students.count} students".center(40)
+      if students.length > 1
+       puts "Now we have #{students.count} students".center(40)
+      else
+       puts "Now we have #{students.count} student".center(40)
+      end
       # get another name from the user
 
       chomps
