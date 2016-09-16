@@ -2,9 +2,9 @@ def chomps
   get_name = "Please enter a name:"
   get_cohort = "Please enter a cohort:"
   puts get_name
-  $name = $stdin.gets.chomp
+  $name = $stdin.gets.delete("\n")
   puts get_cohort
-  $cohort = $stdin.gets.chomp
+  $cohort = $stdin.gets.delete("\n")
 end
 def input_students
     puts "Please enter the names and cohorts of the students when prompted"
