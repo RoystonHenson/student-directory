@@ -11,7 +11,7 @@ def input_students
       students << {name: name, cohort: :November,
                    hobbies: :hobbies, country_of_bith: :country,
                    height: :height, weight: :weight}
-      puts "Now we have #{students.count} students"
+      puts "Now we have #{students.count} students".center(40)
       # get another name from the user
       name = $stdin.gets.chomp
     end
@@ -20,8 +20,8 @@ def input_students
 end
 
 def print_header
-  puts "The Students of Villains Academy"
-  puts "--------------------"
+  puts "The Students of Villains Academy".center(40)
+  puts "--------------------".center(40)
 end
 
 def print(students)
@@ -38,7 +38,7 @@ def print(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  puts "Overall, we have #{students.count} great students".center(40)
 end
 # nothing happens until we call the methods
 students = input_students
