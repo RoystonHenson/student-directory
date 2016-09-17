@@ -1,3 +1,5 @@
+require 'csv'
+
 @students = []
 
 def append
