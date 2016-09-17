@@ -1,3 +1,5 @@
+@students = []
+
 def chomps
   get_name = "Please enter a name:"
   get_cohort = "Please enter a cohort:"
@@ -6,30 +8,54 @@ def chomps
   puts get_cohort
   $cohort = $stdin.gets.delete("\n")
 end
+
 def input_students
     puts "Please enter the names and cohorts of the students when prompted"
     puts "To finish, just hit return three times"
-    # create an empty array
-    students = []
-    # get the first name
     chomps
-    # while the name is not empty, repeat this code
     while !$name.empty? do
-      # add the student hash to the array
-      students << {name: $name, cohort: $cohort,
+      @students << {name: $name, cohort: $cohort,
                    hobbies: :hobbies, country_of_bith: :country,
                    height: :height, weight: :weight}
-      if students.length > 1
-       puts "Now we have #{students.count} students".center(40)
+      if @students.length > 1
+       puts "Now we have #{@students.count} students".center(40)
       else
-       puts "Now we have #{students.count} student".center(40)
+       puts "Now we have #{@students.count} student".center(40)
       end
-      # get another name from the user
-
       chomps
     end
-    # return the array of students
-    students
+end
+
+def interactive_menu
+  loop do
+    print_menu
+    process(gets.chomp)
+  end
+end
+
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+
+def show_students
+  print_header
+  print_student_list
+  print_footer
+end
+
+def process(selection)
+  case selection
+    when "1"
+      input_students
+    when "2"
+      show_students
+    when "9"
+      exit
+  else
+    puts "I don't know what you meant, try again"
+  end
 end
 
 def print_header
@@ -37,24 +63,14 @@ def print_header
   puts "--------------------".center(40)
 end
 
-def print(students)
-  count = 0
-  while count < students.length
-    if students[count - 1][:name][0] == "R" && students[count - 1][:name].length < 12
-      puts "#{count + 1}: #{students[count - 1][:name]} (#{students[count - 1][:cohort]} cohort)"
-    else
-      "#{count + 1}: #{students[count - 1][:name]} (#{students[count - 1][:cohort]} cohort)"
-    end
-    break if count == students.length
-    count += 1
+def print_student_list
+  @students.each_with_index do |student, index|
+    puts "#{index + 1}: #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
-def print_footer(students)
-  puts "Overall, we have #{students.count} great students".center(40)
+def print_footer
+  puts "Overall, we have #{@students.count} great students".center(40)
 end
-# nothing happens until we call the methods
-students = input_students
-print_header
-print(students)
-print_footer(students)
+
+interactive_menu
