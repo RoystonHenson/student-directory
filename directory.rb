@@ -1,5 +1,9 @@
 @students = []
 
+def append
+@students << {name: $name, cohort: $cohort}
+end
+
 def chomps
   get_name = "Please enter a name:"
   get_cohort = "Please enter a cohort:"
@@ -14,9 +18,7 @@ def input_students
     puts "To finish, just hit return three times"
     chomps
     while !$name.empty? do
-      @students << {name: $name, cohort: $cohort,
-                   hobbies: :hobbies, country_of_bith: :country,
-                   height: :height, weight: :weight}
+      append
       if @students.length > 1
        puts "Now we have #{@students.count} students".center(40)
       else
@@ -95,7 +97,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
-      @students << {name: $name, cohort: $cohort}
+      append
   end
   file.close
 end
