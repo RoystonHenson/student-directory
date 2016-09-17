@@ -53,15 +53,15 @@ end
 
 def process(selection)
   case selection
-    when "1"
+  when "1" then puts "Option '1' selected"
       input_students
-    when "2"
+    when "2" then puts "Option '2' selected"
       show_students
-    when "3"
+    when "3" then puts "Option '3' selected"
       save_students
-    when "4"
+    when "4"  then puts "Option '4' selected"
       load_students
-    when "9"
+    when "9" then puts "Exiting the program"
       exit
   else
     puts "I don't know what you meant, try again"
