@@ -4,9 +4,9 @@ def chomps
   get_name = "Please enter a name:"
   get_cohort = "Please enter a cohort:"
   puts get_name
-  $name = $stdin.gets.delete("\n")
+  $name = STDIN.gets.delete("\n")
   puts get_cohort
-  $cohort = $stdin.gets.delete("\n")
+  $cohort = STDIN.gets.delete("\n")
 end
 
 def input_students
@@ -29,7 +29,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -37,6 +37,7 @@ def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
+  puts "4. Load the list from students.csv"
   puts "9. Exit"
 end
 
@@ -54,6 +55,8 @@ def process(selection)
       show_students
     when "3"
       save_students
+    when "4"
+      load_students
     when "9"
       exit
   else
@@ -87,4 +90,26 @@ def save_students
   end
   file.close
 end
+
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
+  file.readlines.each do |line|
+    name, cohort = line.chomp.split(",")
+      @students << {name: $name, cohort: $cohort}
+  end
+  file.close
+end
+
+def try_load_students
+  filename = ARGV # first argument from the command line
+  return if filename.nil? # get out of the method if it isn't given
+  if File.exists?(filename) # if it exists
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else #if it doesn't exist
+    puts "Sorry, #{filename} doesn't exist."
+    exit # quit the program
+  end
+end
+
 interactive_menu
