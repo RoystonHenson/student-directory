@@ -1,27 +1,22 @@
-# first we print the list of students
-puts <<-EOF
+# first we put the students into an array
+students = [
+    'Dr. Hannibal Lecter',
+    'Darth Vader',
+    'Nurse Ratched',
+    'Michael Corleone',
+    'Alex DeLarge',
+    'The Wicked Witch of the West',
+    'Terminator',
+    'Freddy Krueger',
+    'The Joker',
+    'Joffrey Baratheon',
+    'Norman Bates'
+]
 
-    The Students of Villains Academy
-    #{'-' * 32}
-
-    Dr. Hannibal Lecter
-    Darth Vader
-    Nurse Ratched
-    Michael Corleone
-    Alex DeLarge
-    The Wicked Witch of the West
-    Terminator
-    Freddy Krueger
-    The Joker
-    Joffrey Baratheon
-    Norman Bates
-
-    EOF
-
-student_count = 11
+# and then print them
+puts "\nThe Students of Villains Academy"
+puts '-' * 32
+students.each { |s| puts s }
 
  # finally we print the total number of students
-print 'Overall, we have '
- # it's important that print() doesn't add new line characters
-print student_count
-puts ' great students'
+puts "\nOverall, we have #{students.size} great students!"
