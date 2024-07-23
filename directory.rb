@@ -14,9 +14,21 @@ students = [
 ]
 
 # and then print them
-puts "\nThe Students of Villains Academy"
-puts '-' * 32
-students.each { |s| puts s }
+def print_header
+  puts "\nThe Students of Villains Academy"
+  puts '-' * 32
+end
+
+
+def print(names)
+  names.each { |s| puts s }
+end
 
  # finally we print the total number of students
-puts "\nOverall, we have #{students.size} great students!"
+ def print_footer(names)
+  puts "\nOverall, we have #{names.size} great students!"
+ end
+
+ print_header
+ print(students)
+ print_footer(students)
