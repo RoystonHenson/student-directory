@@ -1,19 +1,4 @@
-=begin
-puts 'The students of Villains Academy'
-puts '-' * 13
-puts 'Dr. Hannibal Lecter'
-puts 'Darth Vader'
-puts 'Nurse Ratched'
-puts 'Michael Corleone'
-puts 'Alex DeLarge'
-puts 'The Wicked Witch of the West'
-puts 'Terminator'
-puts 'Freddy Krueger'
-puts 'The Joker'
-puts 'Joffrey Baratheon'
-puts 'Norman Bates'
-=end
-
+# first we print the list of students
 puts <<-EOF
 
     The Students of Villains Academy
@@ -32,4 +17,8 @@ puts <<-EOF
     Norman Bates
 
     EOF
-
+ # finally we print the total number of students
+print 'Overall, we have '
+ # it's important that print() doesn't add new line characters
+print 11
+puts ' great students'
