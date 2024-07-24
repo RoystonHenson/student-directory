@@ -1,3 +1,5 @@
+public
+
 def input_students
   puts "Please enter the names of the students\nTo finish, just hit return twice"
   
@@ -30,12 +32,19 @@ end
 
 def print(students, letter=false)
   if letter
-    students.select { |student| student[:name][0].upcase == letter.upcase }.each_with_index { |student, index| puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)" }
+    display_students(students.select { |student| student[:name][0].upcase == letter.upcase })
   else
-    students.each_with_index { |student, index| puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)" }
+    display_students(students)
   end
 end
 
+def display_students(students)
+  count = 1
+  while count <= students.size
+    puts "#{count}. #{students[count - 1][:name]} (#{students[count - 1][:cohort]} cohort)" if students[count - 1][:name].size < 12
+    count += 1
+  end
+end
  # finally we print the total number of students
 def print_footer(students)
   puts "\nOverall, we have #{students.size} great students!"
@@ -45,10 +54,4 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
-print(students, 'r')
-puts '-' * 3
-print(students, 's')
-puts '-' * 3
-print(students, 'z')
-puts '-' * 3
-print(students, 'B')
+
