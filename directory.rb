@@ -28,16 +28,27 @@ def print_header
 end
 
 
-def print(students)
-  students.each { |student| puts "#{student[:name]} (#{student[:cohort]} cohort)" }
+def print(students, letter=false)
+  if letter
+    students.select { |student| student[:name][0].upcase == letter.upcase }.each_with_index { |student, index| puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)" }
+  else
+    students.each_with_index { |student, index| puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)" }
+  end
 end
 
  # finally we print the total number of students
- def print_footer(students)
+def print_footer(students)
   puts "\nOverall, we have #{students.size} great students!"
- end
+end
 
- students = input_students
- print_header
- print(students)
- print_footer(students)
+students = input_students
+print_header
+print(students)
+print_footer(students)
+print(students, 'r')
+puts '-' * 3
+print(students, 's')
+puts '-' * 3
+print(students, 'z')
+puts '-' * 3
+print(students, 'B')
