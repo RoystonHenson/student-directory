@@ -7,6 +7,9 @@ def input_students
   # get the first name
   name = $stdin.gets.chomp
 
+  # make sure names are capitalised
+  name = capitalise_words(name)
+
   # while the name is not empty, repeat this code
   while !name.empty? do
 
@@ -16,13 +19,16 @@ def input_students
 
     # get another name from the user
     name = $stdin.gets.chomp
+
+    # make sure names are capitalised
+    name = capitalise_words(name)
   end
   # return the array of students
   @students
 end
 
 def add_detail
-  puts 'Enter the name(as it is in our system) of the student you would like to add information for'
+  puts 'Enter the name of the student you would like to add information for'
   name = $stdin.gets.chomp
   if @students.find { |student| student[:name].upcase == name.upcase} == nil
     puts 'That student is not in our directory'
@@ -63,6 +69,10 @@ end
 def print_footer(students)
   puts "\nOverall, we have #{students.size} great students!"
   puts 'Note: Names over 12 characters long are currently not being shown'
+end
+
+def capitalise_words(words)
+  words.split.map(&:capitalize).join(' ')
 end
 
 students = input_students
