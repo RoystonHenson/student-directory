@@ -62,7 +62,8 @@ def input_students
         name = capitalise_words(name) 
         # add student hash to the array
         @students << {name: name, cohort: cohort.to_sym}
-        puts "Now we have #{@students.size} students."
+          puts "Now we have #{@students.size} #{singular_or_plural('student', @students.size)}."
+          puts @students.size == 1 ? "Now we have #{@students.size} student." : "Now we have #{@students.size} students."
       end
     end
   # sort the students by cohort
@@ -119,12 +120,16 @@ end
 
  # finally we print the total number of students
 def print_footer(students)
-  puts "\nOverall, we have #{students.size} great students! "\
+  puts "\nOverall, we have #{@students.size} great #{singular_or_plural('student', @students.size)}! "\
        'Note: Names over 12 characters long are currently not being shown.'.center(80)
 end
 
 def capitalise_words(words)
   words.split.map(&:capitalize).join(' ')
+end
+
+def singular_or_plural(string, number)
+  number == 1 ? string : string << 's'
 end
 
 menu()
