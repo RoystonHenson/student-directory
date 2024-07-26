@@ -57,15 +57,18 @@ end
 
 def display_students(students)
   count = 1
+  line_width = 30
   while count <= students.size
-    puts ("#{count}. #{students[count - 1][:name]} (#{students[count - 1][:cohort]} cohort)" if students[count - 1][:name].size < 12).center(80)
-    count += 1
-  end
+    if students[count - 1][:name].size < 12
+      puts "#{count}. #{students[count - 1][:name]}".rjust(line_width) + "(#{students[count - 1][:cohort]} cohort)".rjust(line_width)
+    end
+      count += 1
+    end
 end
 
  # finally we print the total number of students
 def print_footer(students)
-  puts "\nOverall, we have #{students.size} great students!"\
+  puts "\nOverall, we have #{students.size} great students! "\
        'Note: Names over 12 characters long are currently not being shown'.center(80)
 end
 
