@@ -2,10 +2,10 @@ def menu
   while true
     puts "\nWelcome to the Student Directory. Please enter one of the folowing commands:"
     puts """   
-           New   -  Add new students
-           Add   -  Add details for existing students
-           Show  -  Display list of existing students
-           Exit  -  Exit Student Directory
+             New   -  Add new students
+             Add   -  Add details for existing students
+             Show  -  Display list of existing students
+             Exit  -  Exit Student Directory
          """
     choice = $stdin.gets.chomp.downcase
     if choice == 'new'
@@ -13,30 +13,36 @@ def menu
     elsif choice == 'add'
       add_detail
     elsif choice == 'show'
-      puts 'How would you like to display the students?:'
-      puts """
-           All     -  Lists all students
-           Month   -  You want to search students by month
-           Letter  -  You want to search students by first letter of their name
-      """
-      choice = $stdin.gets.chomp.downcase
-      if choice == 'all'
-        print(@students)
-      elsif choice == 'month'
-        puts 'Enter the month of the cohort:'
-        choice = $stdin.gets.chomp.downcase.to_sym
-          if @students.any? { |student| student[:cohort] == choice }
-            print(@students.select { |student| student[:cohort] === choice })
+      if @students.nil? || @students.size < 1
+        puts 'There are no students in the directory!'
+      else
+        puts 'There are no students in the directory!' 
+        puts 'How would you like to display the students?:'
+        puts """
+             All     -  Lists all students
+             Month   -  You want to search students by month
+             Letter  -  You want to search students by first 
+                        letter of their name
+        """
+        choice = $stdin.gets.chomp.downcase
+        if choice == 'all'
+          print(@students)
+        elsif choice == 'month'
+          puts 'Enter the month of the cohort:'
+          choice = $stdin.gets.chomp.downcase.to_sym
+            if @students.any? { |student| student[:cohort] == choice }
+              print(@students.select { |student| student[:cohort] === choice })
+            else
+              puts 'Sorry, there are no students for that month.'
+            end
+        elsif choice == 'letter'
+          puts 'Please enter the first letter of the student\'s name'
+          choice = $stdin.gets.chomp.upcase
+          if @students.any? { |student| student[:name][0] == choice }
+            print(@students, choice)
           else
-            puts 'Sorry, there are no students for that month.'
+            puts 'Sorry, there are no students matching that search request.'
           end
-      elsif choice == 'letter'
-        puts 'Please enter the first letter of the student\'s name'
-        choice = $stdin.gets.chomp.upcase
-        if @students.any? { |student| student[:name][0] == choice }
-          print(@students, choice)
-        else
-          puts 'Sorry, there are no students matching that search request.'
         end
       end
     elsif choice == 'exit'
@@ -55,7 +61,7 @@ def input_students
       name = $stdin.gets.chomp
       break if name == ''
       puts "What cohort is this student in? (Hit enter to cancel):"
-      cohort = $stdin.gets.chomp.capitalize
+      cohort = $stdin.gets.chomp
       break if cohort == ''
       if !name.empty? && !cohort.empty?
         # make sure student names are capitalised
@@ -63,7 +69,6 @@ def input_students
         # add student hash to the array
         @students << {name: name, cohort: cohort.to_sym}
           puts "Now we have #{@students.size} #{singular_or_plural('student', @students.size)}."
-          puts @students.size == 1 ? "Now we have #{@students.size} student." : "Now we have #{@students.size} students."
       end
     end
   # sort the students by cohort
@@ -112,7 +117,7 @@ def display_students(students)
   line_width = 30
   while count <= students.size
     if students[count - 1][:name].size < 12
-      puts "#{count}. #{students[count - 1][:name]}".rjust(line_width) + "(#{students[count - 1][:cohort]} cohort)".rjust(line_width)
+      puts "#{count}. #{students[count - 1][:name]}".rjust(line_width) + "(#{students[count - 1][:cohort].capitalize} cohort)".rjust(line_width)
     end
       count += 1
     end
