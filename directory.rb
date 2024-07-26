@@ -1,43 +1,41 @@
 def input_students
-  puts "Please enter the names of the students\nTo finish, just hit return twice"
-  
   # create an empty array
   @students = []
- 
-  # get the first name
-  name = $stdin.gets.chomp
-
-  # make sure names are capitalised
-  name = capitalise_words(name)
-
-  # while the name is not empty, repeat this code
-  while !name.empty? do
-
-    # add the student hash to the array
-    @students << {name: name, cohort: :november}
-    puts "Now we have #{@students.size} students"
-
-    # get another name from the user
-    name = $stdin.gets.chomp
-
-    # make sure names are capitalised
-    name = capitalise_words(name)
-  end
-  # return the array of students
+  # get student name and cohort from user
+    name, cohort = 'ready', 'set'
+    while !name.empty? || !cohort.empty?
+      puts "Please enter the name of the student you want to add (Hit enter to cancel)"
+      name = $stdin.gets.chomp
+      break if name == ''
+      puts "What cohort is this student in? (Hit enter to cancel)"
+      cohort = $stdin.gets.chomp
+      break if cohort == ''
+      if !name.empty? && !cohort.empty?
+        # make sure student names are capitalised
+        name = capitalise_words(name) 
+        # add student hash to the array
+        @students << {name: name, cohort: cohort.to_sym}
+        puts "Now we have #{@students.size} students"
+      end
+    end
+  # return array of students
   @students
 end
 
 def add_detail
   puts 'Enter the name of the student you would like to add information for'
   name = $stdin.gets.chomp
+  # check if student is in the directory
   if @students.find { |student| student[:name].upcase == name.upcase} == nil
     puts 'That student is not in our directory'
   else
+    # prompt user for information to add
     puts 'What information you would like to add? (e.g. age, height, etc.)'
     key = $stdin.gets.chomp
     puts 'And now enter the information'
     value = $stdin.gets.chomp
     puts "You have added '#{key.capitalize}: #{value}' for #{name.capitalize}"
+    # find hash containing student and add the information supplied by user
     index = @students.index(@students.find { |student| student[:name].upcase == name.upcase})
     @students[index][key.downcase.to_sym] = value
   end
