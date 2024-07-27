@@ -6,7 +6,7 @@ def menu
     when 'new'  then input_students
     when 'add'  then add_student_detail
     when 'show' then puts @students.nil? ? 'There are no students in the directory!' : show_students
-    when 'load' then load_students
+    when 'load' then try_load_students
     when 'save' then save_students
     when 'exit' then exit(0)    
     else puts 'Please enter one of the commands to continue:'
@@ -146,15 +146,27 @@ def singular_or_plural(string, number)
   number == 1 ? string : string << 's'
 end
 
-def load_students
+def load_students(filename='students.csv')
   @students = [] if @students.nil?
-  file = File.open('students.csv', 'r')
+  file = File.open(filename, 'r')
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
   puts 'File loaded...'
+end
+
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.size} from #{filename}"
+  else
+   puts "Sorry, #{filename} doesn't exist"
+   exit(0)
+  end
 end
 
 def save_students
