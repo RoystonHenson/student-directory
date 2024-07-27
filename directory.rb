@@ -6,6 +6,7 @@ def menu
     when 'new'  then input_students
     when 'add'  then add_student_detail
     when 'show' then puts @students.nil? ? 'There are no students in the directory!' : show_students
+    when 'load' then load_students
     when 'save' then save_students
     when 'exit' then exit(0)    
     else puts 'Please enter one of the commands to continue:'
@@ -39,7 +40,8 @@ def menu_introduction
              New   -  Add new students
              Add   -  Add details for existing students
              Show  -  Display list of existing students
-             Save  -  Save Student Directory to a file 
+             Save  -  Save Student Directory to a file
+             Load  -  Load existing students from a file 
              Exit  -  Exit Student Directory
        """
 end
@@ -144,6 +146,17 @@ def singular_or_plural(string, number)
   number == 1 ? string : string << 's'
 end
 
+def load_students
+  @students = [] if @students.nil?
+  file = File.open('students.csv', 'r')
+  file.readlines.each do |line|
+    name, cohort = line.chomp.split(',')
+    @students << {name: name, cohort: cohort.to_sym}
+  end
+  file.close
+  puts 'File loaded...'
+end
+
 def save_students
   file = File.open('students.csv', 'w')
   @students.each do |student|
@@ -152,5 +165,6 @@ def save_students
     file.puts csv_line
   end
   file.close
+  puts 'File saved...'
 end
 menu()
